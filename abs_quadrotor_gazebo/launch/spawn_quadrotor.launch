@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="name" default="quadrotor" />
+    <arg name="model" default="$(find abs_quadrotor_description)/urdf/dji_m100.urdf.xacro" />
+    <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)" />
+
+    <arg name="x" default="0.0" />
+    <arg name="y" default="0.0" />
+    <arg name="z" default="0.5" />
+
+    <!-- TODO: maybe not right -->
+    <arg name="base_link_frame" default="$(arg tf_prefix)/base_link" />
+    <arg name="world_frame" default="world" />
+
+    <!-- Load robot description urdf and configuration into param server -->
+    <param name="tf_prefix" type="string" value="$(arg tf_prefix)" />
+    <param name="base_link_frame" type="string" value="$(arg base_link_frame)" />
+    <param name="world_frame" type="string" value="$(arg world_frame)" />
+    <!-- TODO Should test this ! -->
+    <param name="robot_description" command="$(find xacro)/xacro '$(arg model)' base_link_frame:=$(arg base_link_frame) world_frame:=$(arg world_frame)" />
+
+    <!-- Call server to spawn robot model -->
+    <node name="spawn_quadrotor" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-param robot_description -urdf -x $(arg x) -y $(arg y) -z $(arg z) -model $(arg name)">
+    </node>
+
+    <!-- Publish joint state(if there is any) -->
+    <!-- node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen" / -->
+    <!-- Aggregate joint state and publish robot state -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+
+</launch>

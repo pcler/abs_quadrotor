@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!-- Can be modified as including empty_world.launch in gazebo_ros package -->
+<launch>
+    <arg name="world" default="worlds/empty.world" />
+    <arg name="args" default="" />
+
+    <arg name="use_gui" default="true" />
+    <arg name="use_sim_time" default="true" />
+
+    <param name="/use_sim_time" value="$(arg use_sim_time)" />
+
+    <!-- Run gazebo server -->
+    <node name="gzserver" pkg="gazebo_ros" type="gzserver" args="$(arg world) $(arg args)" respawn="false" output="screen"/>
+
+    <!-- Run gazebo client -->
+    <group if="$(arg use_gui)">
+        <node name="gzclient" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+    </group>
+</launch>
+

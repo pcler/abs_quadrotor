@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+    <include file="$(find abs_quadrotor_gazebo)/launch/bringup_empty_world.launch">
+        <arg name="world" value="$(find abs_quadrotor_gazebo)/worlds/indoor_scene.world"/>
+    </include>
+</launch>
+
