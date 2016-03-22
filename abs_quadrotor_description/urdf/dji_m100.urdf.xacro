@@ -24,7 +24,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://dji_sdk_description/meshes/dji_m100.stl" />
+          filename="package://abs_quadrotor_description/meshes/dji_m100_body_rough.dae" />
       </geometry>
       <material
         name="">
@@ -38,7 +38,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://dji_sdk_description/meshes/dji_m100.stl" />
+          filename="package://abs_quadrotor_description/meshes/djim100_body_rough.dae" />
       </geometry>
     </collision>
   </link>
