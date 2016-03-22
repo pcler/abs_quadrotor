@@ -4,14 +4,15 @@
 <launch>
     <arg name="world" default="worlds/empty.world" />
     <arg name="args" default="" />
+    <arg name="gazebo_namespace" default="gazebo" />
 
     <arg name="use_gui" default="true" />
-    <arg name="use_sim_time" default="true" />
+    <arg name="use_sim_time" default="false" />
 
     <param name="/use_sim_time" value="$(arg use_sim_time)" />
 
     <!-- Run gazebo server -->
-    <node name="gzserver" pkg="gazebo_ros" type="gzserver" args="$(arg world) $(arg args)" respawn="false" output="screen"/>
+    <node name="$(arg gazebo_namespace)" pkg="gazebo_ros" type="gzserver" args="$(arg world) $(arg args)" respawn="false" output="screen"/>
 
     <!-- Run gazebo client -->
     <group if="$(arg use_gui)">

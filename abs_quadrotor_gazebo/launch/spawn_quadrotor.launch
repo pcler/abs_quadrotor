@@ -4,11 +4,12 @@
 
     <arg name="name" default="quadrotor" />
     <arg name="model" default="$(find abs_quadrotor_description)/urdf/dji_m100.urdf.xacro" />
+    <arg name="gazebo_namespace" default="gazebo" />
     <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)" />
 
     <arg name="x" default="0.0" />
     <arg name="y" default="0.0" />
-    <arg name="z" default="0.5" />
+    <arg name="z" default="0.21" />
 
     <!-- TODO: maybe not right -->
     <arg name="base_link_frame" default="$(arg tf_prefix)/base_link" />
@@ -23,7 +24,12 @@
 
     <!-- Call server to spawn robot model -->
     <node name="spawn_quadrotor" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-        args="-param robot_description -urdf -x $(arg x) -y $(arg y) -z $(arg z) -model $(arg name)">
+          args="-param robot_description -urdf
+                -x $(arg x)
+                -y $(arg y)
+                -z $(arg z)
+                -model $(arg name)
+                -gazebo_namespace $(arg gazebo_namespace)">
     </node>
 
     <!-- Publish joint state(if there is any) -->
